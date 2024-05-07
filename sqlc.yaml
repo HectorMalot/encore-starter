@@ -1,0 +1,26 @@
+version: "2"
+overrides:
+  go:
+    overrides:
+      - db_type: "uuid"
+        go_type: "encore.dev/types/uuid.UUID"
+      - db_type: "uuid"
+        go_type: "encore.dev/types/uuid.NullUUID"
+        nullable: true        
+      - db_type: "vector"
+        go_type: "encore.app/internal/types.Vector"
+sql:
+- schema: "integrations/appdb/migrations"
+  queries: "business/user/db/queries.sql"
+  engine: "postgresql"
+  gen:
+    go: 
+      sql_package: "pgx/v5"
+      out: "business/user/db/postgres"
+- schema: "integrations/appdb/migrations"
+  queries: "business/auth/db/queries.sql"
+  engine: "postgresql"
+  gen:
+    go: 
+      sql_package: "pgx/v5"
+      out: "business/auth/db/postgres"
